@@ -4,7 +4,10 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids,
+  Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.StorageBin, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmConsultaCidade = class(TForm)
@@ -14,8 +17,15 @@ type
     btnEditar: TButton;
     btnInserir: TButton;
     btnPesquisa: TButton;
+    DataSource1: TDataSource;
+    FDMemTable1: TFDMemTable;
+    FDMemTable1codigo: TIntegerField;
+    FDMemTable1cidade: TStringField;
+    FDMemTable1uf: TStringField;
     procedure dbgrdClienteDblClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
+    procedure btnPesquisaClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FCodigoCidade: Integer;
     FUF: string;
@@ -34,7 +44,7 @@ var
 implementation
 
 uses
-  view.cidade.cadastro;
+  view.cidade.cadastro, controller.cidade, interfaces.controller.cidade;
 
 {$R *.dfm}
 
@@ -48,12 +58,25 @@ begin
   end;
 end;
 
+procedure TfrmConsultaCidade.btnPesquisaClick(Sender: TObject);
+var
+  controllerCidade: IControllerCidade;
+begin
+  controllerCidade := TControllerCidade.Create;
+  controllerCidade.Load(FDMemTable1);
+end;
+
 procedure TfrmConsultaCidade.dbgrdClienteDblClick(Sender: TObject);
 begin
-  FcodigoCidade := 1;
-  Fcidade := 'Pedranópolis';
-  FUF := 'SP';
+  FcodigoCidade := FDMemTable1codigo.AsInteger;
+  Fcidade :=  FDMemTable1cidade.AsString;
+  FUF :=  FDMemTable1UF.AsString;
   ModalResult := mrOk;
+end;
+
+procedure TfrmConsultaCidade.FormShow(Sender: TObject);
+begin
+  btnPesquisa.Click;
 end;
 
 end.

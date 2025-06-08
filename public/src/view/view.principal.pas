@@ -11,7 +11,9 @@ type
     btnCLiente: TButton;
     btnProduto: TButton;
     btnVenda: TButton;
+    Button1: TButton;
     procedure btnCLienteClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -24,7 +26,7 @@ var
 implementation
 
 uses
-  view.cliente.consulta;
+  view.cliente.consulta, interfaces.conexao, entidade.conexao;
 
 {$R *.dfm}
 
@@ -35,6 +37,26 @@ begin
     frmConsultaCliente.ShowModal;
   finally
     FreeAndNil(frmConsultaCliente);
+  end;
+end;
+
+procedure TfrmPrincipal.Button1Click(Sender: TObject);
+var
+  LConexao: IConexao;
+begin
+  LConexao := TConexao.Create;
+
+  try
+    if LConexao.Conectar then
+      ShowMessage('Coneão realizada')
+    else
+      ShowMessage('Conexão não realizada');
+
+  except
+    on e:exception do
+    begin
+      ShowMessage('Erro: '+e.Message);
+    end;
   end;
 end;
 

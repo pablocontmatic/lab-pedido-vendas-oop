@@ -4,7 +4,11 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
+  Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Data.FireDACJSONReflect,
+  FireDAC.Stan.StorageBin;
 
 type
   TfrmConsultaCliente = class(TForm)
@@ -14,7 +18,14 @@ type
     btnEditar: TButton;
     btnInserir: TButton;
     btnPesquisa: TButton;
+    DataSource1: TDataSource;
+    FDMemTable1: TFDMemTable;
+    FDMemTable1codigo: TIntegerField;
+    FDMemTable1nome: TStringField;
+    FDMemTable1cidade: TStringField;
+    FDMemTable1uf: TStringField;
     procedure btnInserirClick(Sender: TObject);
+    procedure btnPesquisaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,7 +38,7 @@ var
 implementation
 
 uses
-  view.cliente.cadastro;
+  view.cliente.cadastro, controller.cliente, interfaces.controller.cliente;
 
 {$R *.dfm}
 
@@ -39,6 +50,14 @@ begin
   finally
     FreeAndNil(frmCadastroclliente);
   end;
+end;
+
+procedure TfrmConsultaCliente.btnPesquisaClick(Sender: TObject);
+var
+  controllerCLiente: IControllerCliente;
+begin
+  controllerCliente := TControllerCliente.Create;
+  controllerCliente.LoadClientes(FDMemTable1);
 end;
 
 end.
