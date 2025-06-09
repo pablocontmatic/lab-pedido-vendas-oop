@@ -82,6 +82,8 @@ begin
   FInstanciaConfiguracao.carregarConfiguracoes;
 
   FConexao.Params.Database := FInstanciaConfiguracao.getPathDB;
+  FConexao.Params.OwnsObjects := true;
+//  FConexao.Params.Add('LockingMode=Normal');
   FConexao.DriverName :=  FInstanciaConfiguracao.getDriverID;
   FConexao.Connected := True;
 end;

@@ -3,7 +3,8 @@ unit entidade.cliente;
 interface
 
 uses
-  interfaces.cliente, entidade.cidade, System.Generics.Collections;
+  interfaces.cliente, entidade.cidade, System.Generics.Collections,
+  System.SysUtils;
 
 type
   TCliente = class(TInterfacedObject, ICliente)
@@ -14,30 +15,42 @@ type
     procedure SetCidade(const Value: TCidade);
     procedure SetCodigo(const Value: integer);
     procedure SetNome(const Value: String);
-  published
+  public
 
-    constructor create(nome: string; codigoCidade: Integer);
+    constructor create(Anome: string; AcodigoCidade: Integer); overload;
+    constructor create(Acodigo: Integer; Anome: string; AcodigoCidade: Integer); overload;
     destructor destroy; override;
     property Codigo: integer read FCodigo write SetCodigo;
     property Nome: String read FNome write SetNome;
     property Cidade: TCidade read FCidade write SetCidade;
-
-  end;
-
-  TListaCliente = class(TObjectList<TCliente>)
-    constructor create;
-    destructor destroy; override;
   end;
 
 implementation
 
 { TCliente }
 
-constructor TCliente.create(nome: string; codigoCidade: Integer);
+constructor TCliente.create(Anome: string; AcodigoCidade: Integer);
 begin
-  FNome := nome;
-  FCidade := TCidade.Create;
-  FCidade.codigo := codigoCidade;
+  Nome := Anome;
+  Cidade := TCidade.Create;
+
+  if AcodigoCidade = 0 then
+    raise Exception.Create('Cidade é obrigatória');
+
+  Cidade.codigo := AcodigoCidade;
+end;
+
+constructor TCliente.create(Acodigo: Integer; Anome: string;
+  AcodigoCidade: Integer);
+begin
+  Codigo := Acodigo;
+  Nome := Anome;
+  Cidade := TCidade.Create;
+
+  if AcodigoCidade = 0 then
+    raise Exception.Create('Cidade é obrigatória');
+
+  FCidade.codigo := AcodigoCidade;
 end;
 
 destructor TCliente.destroy;
@@ -58,20 +71,10 @@ end;
 
 procedure TCliente.SetNome(const Value: String);
 begin
+  if Value = '' then
+    raise Exception.Create('Nome é obrigatório');
+
   FNome := Value;
-end;
-
-{ TListaCliente }
-
-constructor TListaCliente.create;
-begin
-  Self.OwnsObjects := true;
-end;
-
-destructor TListaCliente.destroy;
-begin
-
-  inherited;
 end;
 
 end.

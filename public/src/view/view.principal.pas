@@ -10,10 +10,12 @@ type
   TfrmPrincipal = class(TForm)
     btnCLiente: TButton;
     btnProduto: TButton;
-    btnVenda: TButton;
+    btnPedido: TButton;
     Button1: TButton;
     procedure btnCLienteClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure btnProdutoClick(Sender: TObject);
+    procedure btnPedidoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,7 +28,11 @@ var
 implementation
 
 uses
-  view.cliente.consulta, interfaces.conexao, entidade.conexao;
+  view.cliente.consulta,
+  view.produto.consulta,
+  view.pedido.consulta,
+  interfaces.conexao,
+  entidade.conexao;
 
 {$R *.dfm}
 
@@ -37,6 +43,26 @@ begin
     frmConsultaCliente.ShowModal;
   finally
     FreeAndNil(frmConsultaCliente);
+  end;
+end;
+
+procedure TfrmPrincipal.btnProdutoClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmConsultaProduto, frmConsultaProduto);
+  try
+    frmConsultaProduto.ShowModal;
+  finally
+    FreeAndNil(frmConsultaProduto);
+  end;
+end;
+
+procedure TfrmPrincipal.btnPedidoClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmConsultaPedido, frmConsultaPedido);
+  try
+    frmConsultaPedido.ShowModal;
+  finally
+    FreeAndNil(frmConsultaPedido);
   end;
 end;
 

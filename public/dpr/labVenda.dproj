@@ -88,11 +88,6 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="..\src\interfaces\interfaces.cidade.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.cliente.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.item.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.pedido.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.produto.pas"/>
         <DCCReference Include="..\src\entidade\entidade.produto.pas"/>
         <DCCReference Include="..\src\entidade\entidade.cliente.pas"/>
         <DCCReference Include="..\src\entidade\entidade.cidade.pas"/>
@@ -107,7 +102,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\src\view\cliente\view.cliente.cadastro.pas">
-            <Form>frmCadastroclliente</Form>
+            <Form>frmCadastrocliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\src\view\cidade\view.cidade.consulta.pas">
@@ -125,16 +120,55 @@
         <DCCReference Include="..\src\controller\controller.pedido.pas"/>
         <DCCReference Include="..\src\controller\controller.produto.pas"/>
         <DCCReference Include="..\src\DAO\DAO.cliente.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.conexao.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.configuracao.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.controller.cliente.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.DAO.cliente.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.query.pas"/>
         <DCCReference Include="..\src\entidade\conexao\entidade.conexao.pas"/>
         <DCCReference Include="..\src\entidade\conexao\entidade.query.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.controller.cidade.pas"/>
         <DCCReference Include="..\src\DAO\DAO.cidade.pas"/>
-        <DCCReference Include="..\src\interfaces\interfaces.DAO.cidade.pas"/>
+        <DCCReference Include="..\src\utils\enum\utils.enum.tipocadastro.pas"/>
+        <DCCReference Include="..\src\view\produto\view.produto.cadastro.pas">
+            <Form>frmCadastroProduto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\src\view\produto\view.produto.consulta.pas">
+            <Form>frmConsultaProduto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\src\interfaces\controller\interfaces.controller.produto.pas"/>
+        <DCCReference Include="..\src\DAO\DAO.produto.pas"/>
+        <DCCReference Include="..\src\interfaces\DAO\interfaces.DAO.produto.pas"/>
+        <DCCReference Include="..\src\interfaces\DAO\interfaces.DAO.cliente.pas"/>
+        <DCCReference Include="..\src\interfaces\DAO\interfaces.DAO.cidade.pas"/>
+        <DCCReference Include="..\src\interfaces\controller\interfaces.controller.cliente.pas"/>
+        <DCCReference Include="..\src\interfaces\controller\interfaces.controller.cidade.pas"/>
+        <DCCReference Include="..\src\interfaces\entidade\conexao\interfaces.conexao.pas"/>
+        <DCCReference Include="..\src\interfaces\entidade\conexao\interfaces.query.pas"/>
+        <DCCReference Include="..\src\interfaces\entidade\interfaces.cidade.pas"/>
+        <DCCReference Include="..\src\interfaces\entidade\interfaces.cliente.pas"/>
+        <DCCReference Include="..\src\interfaces\entidade\interfaces.configuracao.pas"/>
+        <DCCReference Include="..\src\interfaces\entidade\interfaces.item.pas"/>
+        <DCCReference Include="..\src\interfaces\entidade\interfaces.pedido.pas"/>
+        <DCCReference Include="..\src\interfaces\entidade\interfaces.produto.pas"/>
+        <DCCReference Include="..\src\interfaces\controller\interfaces.controller.pedido.pas"/>
+        <DCCReference Include="..\src\DAO\DAO.pedido.pas"/>
+        <DCCReference Include="..\src\interfaces\DAO\interfaces.DAO.pedido.pas"/>
+        <DCCReference Include="..\src\view\pedido\view.pedido.cadastro.pas">
+            <Form>frmCadastroPedido</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\src\view\pedido\view.pedido.consulta.pas">
+            <Form>frmConsultaPedido</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\src\interfaces\controller\interfaces.controller.item.pas"/>
+        <DCCReference Include="..\src\DAO\DAO.item.pas"/>
+        <DCCReference Include="..\src\interfaces\DAO\interfaces.DAO.item.pas"/>
+        <DCCReference Include="..\src\view\view.mensagem.pas">
+            <Form>frmMensagem</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\src\view\pedido\item\view.item.editar.pas">
+            <Form>FrmEditarItem</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

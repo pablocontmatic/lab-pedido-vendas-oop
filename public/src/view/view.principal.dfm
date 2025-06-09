@@ -2,7 +2,7 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Vendas'
-  ClientHeight = 159
+  ClientHeight = 205
   ClientWidth = 285
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -28,18 +28,20 @@ object frmPrincipal: TfrmPrincipal
     Height = 25
     Caption = 'Produto'
     TabOrder = 1
+    OnClick = btnProdutoClick
   end
-  object btnVenda: TButton
+  object btnPedido: TButton
     Left = 104
     Top = 94
     Width = 75
     Height = 25
-    Caption = 'Venda'
+    Caption = 'Pedido'
     TabOrder = 2
+    OnClick = btnPedidoClick
   end
   object Button1: TButton
-    Left = 8
-    Top = 126
+    Left = 0
+    Top = 180
     Width = 105
     Height = 25
     Caption = 'testar conexao'

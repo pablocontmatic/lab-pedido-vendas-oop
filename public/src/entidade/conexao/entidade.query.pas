@@ -19,6 +19,7 @@ type
     function newquery: IQuery;
     procedure destroyQuery;
     function Open(ATable: TFDMemTable; Ascript: string): Boolean;
+    function recuperarUltimoId(Ascript: string): Integer;
     function executar(Ascript: string): Boolean;
 
   property Query : TFDQuery  read FQuery write FQuery;
@@ -63,6 +64,7 @@ end;
 function TQuery.executar(Ascript: string): Boolean;
 var
   LConexao: IConexao;
+  LResult: Integer;
 begin
 
   LConexao := TConexao.Create;
@@ -74,7 +76,8 @@ begin
 
     Self.FQuery.Close;
     Self.FQuery.SQL.Clear;
-    result := Self.FQuery.ExecSQL(Ascript) = 0;
+    LResult := Self.FQuery.ExecSQL(Ascript);
+    result := LResult = 1;
   end;
 end;
 
@@ -101,6 +104,25 @@ begin
     ATable.Close;
     ATable.CopyDataSet(Self.FQuery);
   end;
+end;
+
+function TQuery.recuperarUltimoId(Ascript: string): Integer;
+var
+  LConexao: IConexao;
+begin
+  LConexao := TConexao.Create;
+
+  if LConexao.Conectar then
+  begin
+    Self.Query := TFDQuery.Create(nil);
+    Self.Query.Connection := LConexao.getConexao;
+
+    Self.FQuery.Close;
+    Self.FQuery.SQL.Clear;
+    Self.FQuery.Open(Ascript);
+  end;
+
+  result := Self.FQuery.Fields[0].AsInteger;
 end;
 
 function TQuery.getQuery: TFDQuery;

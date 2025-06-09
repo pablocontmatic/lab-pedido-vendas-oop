@@ -13,33 +13,14 @@ object frmConsultaCidade: TfrmConsultaCidade
   Position = poMainFormCenter
   OnShow = FormShow
   TextHeight = 13
-  object edtConsulta: TEdit
-    Left = 120
-    Top = 39
-    Width = 194
-    Height = 21
-    TabOrder = 0
-  end
-  object cbbTipoConsulta: TComboBox
-    Left = 9
-    Top = 39
-    Width = 105
-    Height = 21
-    ItemIndex = 0
-    TabOrder = 1
-    Text = 'C'#243'digo'
-    Items.Strings = (
-      'C'#243'digo'
-      'Nome')
-  end
   object dbgrdCliente: TDBGrid
     Left = 0
-    Top = 72
+    Top = 39
     Width = 406
-    Height = 168
+    Height = 201
     Align = alBottom
     DataSource = DataSource1
-    TabOrder = 2
+    TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -64,29 +45,30 @@ object frmConsultaCidade: TfrmConsultaCidade
       end>
   end
   object btnEditar: TButton
-    Left = 89
+    Left = 170
     Top = 8
     Width = 75
     Height = 25
     Caption = 'Editar'
-    TabOrder = 3
+    TabOrder = 1
+    OnClick = btnEditarClick
   end
   object btnInserir: TButton
-    Left = 8
+    Left = 89
     Top = 8
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
-    TabOrder = 4
+    TabOrder = 2
     OnClick = btnInserirClick
   end
   object btnPesquisa: TButton
-    Left = 320
-    Top = 37
+    Left = 8
+    Top = 8
     Width = 75
     Height = 25
     Caption = 'Pesquisar'
-    TabOrder = 5
+    TabOrder = 3
     OnClick = btnPesquisaClick
   end
   object DataSource1: TDataSource

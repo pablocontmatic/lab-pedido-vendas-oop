@@ -10,9 +10,7 @@ object frmCadastroCidade: TfrmCadastroCidade
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
-  PixelsPerInch = 96
   TextHeight = 13
   object lblnome: TLabel
     Left = 32
@@ -52,6 +50,7 @@ object frmCadastroCidade: TfrmCadastroCidade
     Caption = 'Salvar'
     ModalResult = 1
     TabOrder = 2
+    OnClick = btnSalvarClick
   end
   object btnCancelar: TButton
     Left = 168

@@ -1,4 +1,4 @@
-object frmCadastroclliente: TfrmCadastroclliente
+object frmCadastrocliente: TfrmCadastrocliente
   Left = 0
   Top = 0
   BorderIcons = [biMinimize, biMaximize]

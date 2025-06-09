@@ -11,8 +11,6 @@ uses
 
 type
   TfrmConsultaCidade = class(TForm)
-    edtConsulta: TEdit;
-    cbbTipoConsulta: TComboBox;
     dbgrdCliente: TDBGrid;
     btnEditar: TButton;
     btnInserir: TButton;
@@ -26,6 +24,7 @@ type
     procedure btnInserirClick(Sender: TObject);
     procedure btnPesquisaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnEditarClick(Sender: TObject);
   private
     FCodigoCidade: Integer;
     FUF: string;
@@ -44,15 +43,32 @@ var
 implementation
 
 uses
-  view.cidade.cadastro, controller.cidade, interfaces.controller.cidade;
+  view.cidade.cadastro, controller.cidade, interfaces.controller.cidade, utils.enum.tipocadastro;
 
 {$R *.dfm}
+
+procedure TfrmConsultaCidade.btnEditarClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmCadastroCidade, frmCadastroCidade);
+  try
+    frmCadastroCidade.tipoEdicao := tpEditar;
+    frmCadastroCidade.codigo := FDMemTable1codigo.AsInteger;
+    frmCadastroCidade.cidade := FDMemTable1cidade.AsString;
+    frmCadastroCidade.uf := FDMemTable1uf.AsString;
+    frmCadastroCidade.showModal;
+    btnPesquisa.Click;
+  finally
+    FreeAndNil(frmCadastroCidade);
+  end;
+end;
 
 procedure TfrmConsultaCidade.btnInserirClick(Sender: TObject);
 begin
   Application.CreateForm(TfrmCadastroCidade, frmCadastroCidade);
   try
+    frmCadastroCidade.tipoEdicao := tpInserir;
     frmCadastroCidade.showModal;
+    btnPesquisa.Click;
   finally
     FreeAndNil(frmCadastroCidade);
   end;

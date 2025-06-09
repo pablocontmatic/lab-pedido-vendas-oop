@@ -8,30 +8,40 @@ uses
 
 type
   TControllerCliente = class(TInterfacedObject, IControllerCliente)
-    function LoadClientes(out ATable: TFDMemTable): Boolean;
-    function CadastrarCliente(ACliente: TCliente): Boolean;
+    function carregartodos(out ATabela: TFDMemTable): Boolean;
+    function Cadastrar(ACliente: TCliente): Boolean;
+    function Editar(ACliente: TCliente): Boolean;
   end;
 
 implementation
 
 { TControllerCliente }
 
-function TControllerCliente.CadastrarCliente(ACliente: TCliente): Boolean;
+function TControllerCliente.Cadastrar(ACliente: TCliente): Boolean;
 var
   LDAOCliente: IDAOCliente;
 begin
   LDAOCliente := TDAOCliente.Create;
 
-  result := LDAOCliente.cadastrarCliente(ACliente);
+  result := LDAOCliente.cadastrar(ACliente);
 end;
 
-function TControllerCliente.LoadClientes(out ATable: TFDMemTable): Boolean;
+function TControllerCliente.carregartodos(out ATabela: TFDMemTable): Boolean;
 var
   LDAOCliente: IDAOCliente;
 begin
   LDAOCliente := TDAOCliente.Create;
 
-  result := LDAOCliente.loadClientes(ATable);
+  result := LDAOCliente.carregartodos(ATabela);
+end;
+
+function TControllerCliente.Editar(ACliente: TCliente): Boolean;
+var
+  LDAOCliente: IDAOCliente;
+begin
+  LDAOCliente := TDAOCliente.Create;
+
+  result := LDAOCliente.editar(ACliente);
 end;
 
 end.

@@ -5,10 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ImgList,
-  System.ImageList;
+  System.ImageList, utils.enum.TipoCadastro;
 
 type
-  TfrmCadastroclliente = class(TForm)
+  TfrmCadastrocliente = class(TForm)
     edtNome: TEdit;
     lblnome: TLabel;
     lblCidade: TLabel;
@@ -23,15 +23,30 @@ type
     procedure btnSalvarClick(Sender: TObject);
   private
     FcodigoCidade: integer;
+    FtipoEdicao: TTipoCadastro;
+    Fuf: string;
+    Fcodigo: integer;
+    Fnome: string;
+    Fcidade: string;
     procedure SetcodigoCidade(const Value: integer);
+    procedure SettipoEdicao(const Value: TTipoCadastro);
+    procedure Setcidade(const Value: string);
+    procedure Setcodigo(const Value: integer);
+    procedure Setnome(const Value: string);
+    procedure Setuf(const Value: string);
     { Private declarations }
   public
     { Public declarations }
+    property tipoEdicao: TTipoCadastro read FtipoEdicao write SettipoEdicao;
+    property codigo: integer read Fcodigo write Setcodigo;
+    property nome: string read Fnome write Setnome;
+    property cidade: string read Fcidade write Setcidade;
+    property uf: string read Fuf write Setuf;
     property codigoCidade: integer read FcodigoCidade write SetcodigoCidade;
   end;
 
 var
-  frmCadastroclliente: TfrmCadastroclliente;
+  frmCadastrocliente: TfrmCadastrocliente;
 
 implementation
 
@@ -41,7 +56,7 @@ uses
 
 {$R *.dfm}
 
-procedure TfrmCadastroclliente.btnBuscaCidadeClick(Sender: TObject);
+procedure TfrmCadastrocliente.btnBuscaCidadeClick(Sender: TObject);
 begin
   Application.CreateForm(TfrmConsultaCidade, frmConsultaCidade);
   try
@@ -56,23 +71,82 @@ begin
   end;
 end;
 
-procedure TfrmCadastroclliente.btnSalvarClick(Sender: TObject);
+procedure TfrmCadastrocliente.btnSalvarClick(Sender: TObject);
 var
   controllerCLiente: IControllerCliente;
   LCliente: TCliente;
 begin
   controllerCliente := TControllerCliente.Create;
-  LCliente := TCliente.Create(EdtNome.Text, codigoCidade);
-  try
-    controllerCliente.CadastrarCliente(LCliente);
-  finally
-    FreeAndNil(LCliente);
+
+  case tipoEdicao of
+    tpInserir:
+      begin
+        try
+          LCliente := TCliente.Create(EdtNome.Text, codigoCidade);
+          try
+            controllerCliente.Cadastrar(LCliente);
+          finally
+            FreeAndNil(LCliente);
+          end;
+        except
+          on e:exception do
+          begin          
+            ModalResult := mrNone;
+            ShowMessage(e.Message);
+          end;
+        end;
+      end;
+    tpEditar:
+      begin
+        try
+          LCliente := TCliente.Create(codigo, EdtNome.Text, codigoCidade);
+          try
+            controllerCliente.Editar(LCliente);
+          finally
+            FreeAndNil(LCliente);
+          end;
+        except
+          on e:exception do
+          begin
+            ModalResult := mrNone;
+            ShowMessage(e.Message);
+          end;
+        end;
+      end;
   end;
 end;
 
-procedure TfrmCadastroclliente.SetcodigoCidade(const Value: integer);
+procedure TfrmCadastrocliente.Setcidade(const Value: string);
+begin
+  Fcidade := Value;
+  edtNomeCidade.Text := Value;
+end;
+
+procedure TfrmCadastrocliente.Setcodigo(const Value: integer);
+begin
+  Fcodigo := Value;
+end;
+
+procedure TfrmCadastrocliente.SetcodigoCidade(const Value: integer);
 begin
   FcodigoCidade := Value;
+end;
+
+procedure TfrmCadastrocliente.Setnome(const Value: string);
+begin
+  Fnome := Value;
+  edtNome.Text := Value;
+end;
+
+procedure TfrmCadastrocliente.SettipoEdicao(const Value: TTipoCadastro);
+begin
+  FtipoEdicao := Value;
+end;
+
+procedure TfrmCadastrocliente.Setuf(const Value: string);
+begin
+  Fuf := Value;
+  edtUFCidade.Text := Value;
 end;
 
 end.

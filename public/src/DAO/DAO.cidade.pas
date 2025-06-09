@@ -17,6 +17,7 @@ type
     destructor destroy; override;
     function load(ATable: TFDMemTable): Boolean;
     function Cadastrar(ACidade: TCidade): Boolean;
+    function editar(ACidade: TCidade): Boolean;
   end;
 
 implementation
@@ -25,8 +26,8 @@ implementation
 
 function TDAOCidade.Cadastrar(ACidade: TCidade): Boolean;
 var
-  LQuery : IQuery;                                                    //'+ACliente.Nome+'
-begin                                                                   //     '+ACliente.Cidade.codigo+'
+  LQuery : IQuery;
+begin
   LQuery := TQuery.create;
 
   result := LQuery.executar('INSERT INTO CIDADE (CIDADE, UF) VALUES  ('+quotedStr(ACidade.Cidade)+', '+quotedStr(ACidade.UF)+')');
@@ -43,14 +44,22 @@ begin
   inherited;
 end;
 
+function TDAOCidade.editar(ACidade: TCidade): Boolean;
+var
+  LQuery : IQuery;
+begin
+  LQuery := TQuery.create;
+
+  result := LQuery.executar('UPDATE CIDADE SET CIDADE = '+quotedStr(ACidade.Cidade)+', UF = '+quotedStr(ACidade.UF)+' WHERE CODIGO = '+ACidade.codigo.ToString);
+end;
+
 function TDAOCidade.load(ATable: TFDMemTable): Boolean;
 var
   LQuery : IQuery;
 begin
   LQuery := TQuery.create;
 
-  LQuery.Open(ATable, 'SELECT C.CODIGO, C.CIDADE, C.UF FROM CIDADE C');
-
+  result := LQuery.Open(ATable, 'SELECT C.CODIGO, C.CIDADE, C.UF FROM CIDADE C');
 end;
 
 end.
